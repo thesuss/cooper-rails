@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe 'User Registrtion' do
-  #let(:headers) { {HTTP_ACCEPT: 'application/json'} }
+  let(:headers) { {HTTP_ACCEPT: 'application/json'} }
 
   describe 'POST /api/v1/auth/' do
     describe 'register a user' do
@@ -10,7 +10,7 @@ describe 'User Registrtion' do
           params: { email: 'thesuss@susscreations.se',
                     password: 'password',
                     password_confirmation: 'password'},
-          headers: { HTTP_ACCEPT: 'application/json' }
+          headers: headers
         expect(response_json['status']).to eq('success')
         expect(response.status).to eq 200
       end
@@ -20,7 +20,7 @@ describe 'User Registrtion' do
           params: { email: 'thesuss@susscreations.se',
                     password: 'password',
                     password_confirmation: 'wrong_password'},
-          headers: { HTTP_ACCEPT: 'application/json' }
+          headers: headers
         expect(response_json['errors']['password_confirmation']).to eq(['doesn\'t match Password'])
         #expect(response.status).to eq 403
         #it returns 422 http://www.restpatterns.org/HTTP_Status_Codes/422_-_Unprocessable_Entity
@@ -31,7 +31,7 @@ describe 'User Registrtion' do
           params: { email: 'thesuss@sussc',
                     password: 'password',
                     password_confirmation: 'password'},
-          headers: { HTTP_ACCEPT: 'application/json' }
+          headers: headers
         expect(response_json['errors']['email']).to eq(['is not an email'])
         #expect(response.status).to eq 403
         #it returns 422 http://www.restpatterns.org/HTTP_Status_Codes/422_-_Unprocessable_Entity
@@ -45,7 +45,7 @@ describe 'User Registrtion' do
           params: { email: 'thesuss@susscreations.se',
                     password: 'password',
                     password_confirmation: 'password'},
-          headers: { HTTP_ACCEPT: 'application/json' }
+          headers: headers
         expect(response_json['errors']['email']).to eq(['already in use'])
         #expect(response.status).to eq 403
         #it returns 422 http://www.restpatterns.org/HTTP_Status_Codes/422_-_Unprocessable_Entity
